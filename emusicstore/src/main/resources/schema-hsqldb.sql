@@ -1,0 +1,1 @@
+create table Product (productId varchar(255) not null, productCategory varchar(255), productCondition varchar(255), productDescription varchar(255), productManufacturer varchar(255), productName varchar(255), productPrice double precision not null, productStatus varchar(255), unitInStock integer not null, primary key (productId))
