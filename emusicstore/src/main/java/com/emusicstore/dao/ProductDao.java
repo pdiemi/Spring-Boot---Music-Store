@@ -1,15 +1,19 @@
 package com.emusicstore.dao;
 
-import com.emusicstore.model.Product;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import java.util.List;
+import com.emusicstore.model.Product;
 
 /**
  * Created by Le on 1/6/2016.
  */
-public interface ProductDao {
+/*@Repository
+*/
+@RepositoryRestResource
+public interface ProductDao extends CrudRepository<Product, Integer> {
 
-    void addProduct(Product product);
+   /* void addProduct(Product product);
 
     void editProduct(Product product);
 
@@ -17,5 +21,5 @@ public interface ProductDao {
 
     List<Product> getAllProducts();
 
-    void deleteProduct(String id);
+    void deleteProduct(String id);*/
 }

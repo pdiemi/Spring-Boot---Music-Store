@@ -1,5 +1,6 @@
 package com.emusicstore.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,19 +18,36 @@ import org.springframework.web.multipart.MultipartFile;
 public class Product {
 
 	@Id
+	@Column(name="PRODUCTID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer productId;
+	
+	@Column(name="PRODUCTNAME")
     @NotEmpty (message = "The product name must not be null.")
     private String productName;
+	
+    @Column(name="PRODUCTCATEGORY")
     private String productCategory;
+    
+    @Column(name="PRODUCTDESCRIPTION")
     private String productDescription;
+    
+    @Column(name="PRODUCTPRICE") 
    @Min(value = 0, message = "The product price must no be less then zero.")
     private double productPrice;
+    
+    @Column(name="PRODUCTCONDITION")
     private String productCondition;
+    
+    @Column(name="PRODUCTSTATUS")
     private String productStatus;
-
+    
+    
+    @Column(name="UNITINSTOCK")
     @Min(value = 0, message = "The product unit must not be less than zero.")
     private int unitInStock;
+    
+    @Column(name="PRODUCTMANUFACTURER") 
     private String productManufacturer;
 
     @Transient

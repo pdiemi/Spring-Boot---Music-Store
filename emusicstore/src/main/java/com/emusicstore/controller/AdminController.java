@@ -1,7 +1,16 @@
 package com.emusicstore.controller;
 
-import com.emusicstore.dao.ProductDao;
-import com.emusicstore.model.Product;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,14 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
+import com.emusicstore.dao.ProductDao;
+import com.emusicstore.model.Product;
 
 /**
  * Created by Le on 1/9/2016.
@@ -41,7 +44,14 @@ public class AdminController {
 
     @RequestMapping("/admin/productInventory")
     public String productInventory(Model model) {
-        List<Product> products = productDao.getAllProducts();
+    	Iterable<Product> products = productDao.findAll();
+    	List<Product> prodList = new ArrayList<Product>();
+    	
+    	for(Product sinProd : products){
+    		prodList.add(sinProd);
+    	}
+    	
+    	
         model.addAttribute("products", products);
 
         return "productInventory";
@@ -68,7 +78,7 @@ public class AdminController {
         }
         
 		
-productDao.addProduct(product);
+        productDao.save(product);
 
         MultipartFile productImage = product.getProductImage();
         String rootDirectory = request.getSession().getServletContext().getRealPath("/").replace("webapp", "resources");
@@ -101,8 +111,8 @@ productDao.addProduct(product);
                 e.printStackTrace();
             }
         }
-
-        productDao.deleteProduct(id);
+        //need to check if possible
+        productDao.delete(Integer.parseInt(id));
 
         return "redirect:/admin/productInventory";
     }
@@ -110,7 +120,7 @@ productDao.addProduct(product);
 
     @RequestMapping("/admin/productInventory/editProduct/{id}")
     public String editProduct(@PathVariable("id") String id, Model model) {
-        Product product = productDao.getProductById(id);
+        Product product = productDao.findOne(Integer.parseInt(id));
 
         model.addAttribute(product);
 
@@ -136,7 +146,7 @@ productDao.addProduct(product);
             }
         }
 
-        productDao.editProduct(product);
+        productDao.save(product);
 
         return "redirect:/admin/productInventory";
     }

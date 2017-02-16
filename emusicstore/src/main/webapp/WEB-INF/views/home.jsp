@@ -19,7 +19,7 @@
 
             <div class="container">
                 <div class="carousel-caption">
-                    <h1>Welcome to Le's Music Store</h1>
+                    <h1>Welcome to seven's Music Store</h1>
 
                     <p>Here you can browse and buy Instruments, Records and music related Accessories. Order Now for
                         Your Amazing New Kit!</p>
